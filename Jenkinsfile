@@ -48,14 +48,14 @@ pipeline {
         
         // Build and push backend
         sh '''
-          docker build -t <backend image tagged for dockerhub>:latest -f Dockerfile.backend .
-          docker push <backend image tagged for dockerhub:latest
+          docker build -t joedhub/backend:latest -f Dockerfile.backend .
+          docker push joedhub/backend:latest
         '''
         
         // Build and push frontend
         sh '''
-          docker build -t <frontent image tagged for dockerhub>:latest -f Dockerfile.frontend .
-          docker push <frontend image tagged for dockerhub>:latest
+          docker build -t joedhub/frontend:latest -f Dockerfile.frontend .
+          docker push joedhub/frontend:latest
         '''
       }
     }
@@ -68,7 +68,9 @@ pipeline {
             terraform init
             terraform apply -auto-approve \
               -var="dockerhub_username=${DOCKER_CREDS_USR}" \
-              -var="dockerhub_password=${DOCKER_CREDS_PSW}"
+              -var="dockerhub_password=${DOCKER_CREDS_PSW}" \
+              -var="aws_access_key=${AWS_ACCESS_KEY}" \
+              -var="aws_secret_key=${AWS_SECRET_KEY}"
           '''
         }
       }

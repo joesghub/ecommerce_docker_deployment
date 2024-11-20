@@ -1,5 +1,5 @@
 provider "aws" {
-  access_key = aws_access_keyvar.          # Replace with your AWS access key ID (leave empty if using IAM roles or env vars)
+  access_key = var.aws_access_key          # Replace with your AWS access key ID (leave empty if using IAM roles or env vars)
   secret_key = var.aws_secret_key          # Replace with your AWS secret access key (leave empty if using IAM roles or env vars)
   region     = "us-east-1" # Specify the AWS region where resources will be created (e.g., us-east-1, us-west-2)
 
@@ -389,12 +389,12 @@ resource "aws_instance" "ecommerce_app_az2" {
     "Name" : "ecommerce_backend_az2"
   }
 }
-output "ec2_back_1a_private_ip" {
-  value = aws_instance.ec2_back_1a.private_ip
-}
-output "ec2_back_1b_private_ip" {
-  value = aws_instance.ec2_back_1b.private_ip
-}
+# output "ec2_back_1a_private_ip" {
+#   value = aws_instance.ec2_back_1a.private_ip
+# }
+# output "ec2_back_1b_private_ip" {
+#   value = aws_instance.ec2_back_1b.private_ip
+# }
 
 
 
@@ -410,9 +410,7 @@ resource "aws_instance" "ecommerce_bastion_az1" {
   vpc_security_group_ids = [aws_security_group.frontend_sg.id] # Replace with the security group ID, e.g., "sg-01297adb7229b5f08".
   key_name               = "workload_5"                        # The key pair name for SSH access to the instance.
   subnet_id              = aws_subnet.public_1a.id
-  user_data = templatefile("/home/ubuntu/ecommerce_terraform_deployment/Scripts/frontend_build.sh", {
-    ssh_key = var.ssh_key
-  })
+  user_data = templatefile("/home/ubuntu/ecommerce_terraform_deployment/Scripts/frontend_build.sh")
 
     depends_on = [
     aws_db_instance.main,
