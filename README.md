@@ -1,5 +1,4 @@
-# README
-
+# Ecommerce Docker Deployment
 ## PURPOSE
 
 The purpose of this workload is to automate the deployment and management of a containerized e-commerce application using Docker, Terraform, and Jenkins. We utilize Terraform for provisioning infrastructure (VPC, EC2, RDS, etc.), Docker for containerizing the Django backend and React frontend applications, and Jenkins for CI/CD pipeline automation. This setup allows us to deploy the application securely within a private subnet, enhancing scalability and isolation.
